@@ -3,20 +3,17 @@ import { Database } from 'sqlite3';
 // Criando conexão com o banco de dados SQLite
 const db: Database = new Database('./src/expenseslist.db');
 
-export interface Expense {
-    id: number;
-    category: string;
-    value: number;
-    date: string;
-    description: string;
-}
-
 export interface ExpenseData {
     category: string;
     value: number;
     date: string;
     description: string;
 }
+export interface Expense extends ExpenseData {
+    id: number;
+}
+
+
 
 export const getAllExpensesModel = (callback: (err: Error | null, expenses: Expense[] | null) => void): void => {
     db.all('SELECT * FROM expenses', (err: Error | null, rows: any[]) => {
